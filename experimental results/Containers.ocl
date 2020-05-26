@@ -1,0 +1,21 @@
+
+context List::size() -- 75 candidateOCLNum, 2 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 21377 translationTime(s), 2111 staticValidationTime(s), 1060 dynamicValidationTime(s), 
+	
+context List::empty() -- 123 candidateOCLNum, 0 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 345 translationTime(s), 364 staticValidationTime(s), 59 dynamicValidationTime(s), 
+	
+context List::contains(o:Object) -- 69 candidateOCLNum, 2 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 495 translationTime(s), 149 staticValidationTime(s), 45 dynamicValidationTime(s), 
+	
+context List::iterator() -- 1118 candidateOCLNum, 3 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 271 translationTime(s), 1536 staticValidationTime(s), 21 dynamicValidationTime(s), 
+	
+context List::size() -- 75 candidateOCLNum, 2 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 19354 translationTime(s), 1271 staticValidationTime(s), 883 dynamicValidationTime(s), 
+	
+context List::empty() -- 123 candidateOCLNum, 0 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 201 translationTime(s), 259 staticValidationTime(s), 51 dynamicValidationTime(s), 
+	
+context List::contains(o:Object) -- 69 candidateOCLNum, 2 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 303 translationTime(s), 55 staticValidationTime(s), 42 dynamicValidationTime(s), 
+	
+context List::iterator() -- 1118 candidateOCLNum, 3 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 259 translationTime(s), 797 staticValidationTime(s), 19 dynamicValidationTime(s), 
+	
+context List::size() -- 75 candidateOCLNum, 2 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 15273 translationTime(s), 1239 staticValidationTime(s), 615 dynamicValidationTime(s), 
+	
+context List::size() -- 75 candidateOCLNum, 2 wellFormedOCLNum, false isSubject, false isCorrect, 0 TCons, 0 PCode, 0 TCode, 0 PCons, 0 wellFormedSMTNum, 0 correctSMTNum, 32647 translationTime(s), 2835 staticValidationTime(s), 1452 dynamicValidationTime(s), 
+	

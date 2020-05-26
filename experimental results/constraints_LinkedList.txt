@@ -1,0 +1,1902 @@
+#### Test API => SMT ####
+********SMT to be check********
+(declare-datatypes (T) ((Set (mk-set (mapping (Array T Bool))))))
+(declare-datatypes (T) ((List (mk-list (element (Seq T))))))
+(declare-datatypes (T) ((Iterator (mk-iterator (mapping (Seq T)) (previous (Array T Bool))))))
+(declare-datatypes (K V) ((Map (mk-map (key (Array K Bool)) (mapping (Array K V))))))
+(declare-datatypes (K V) ((Entry (mk-entry (key K) (value V)))))
+(define-fun-rec s!ze ((a!1 (Array Int Bool)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (select a!1 x!1) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(define-fun-rec m!e ((a!1 (Array Int Bool)) (x!1 Int)) (Seq Int) (ite (< x!1 -2) (as seq.empty (Seq Int)) (ite (select a!1 x!1) (seq.++ (m!e a!1 (- x!1 1)) (seq.unit x!1)) (m!e a!1 (- x!1 1)))))
+(define-fun-rec e!m ((a!1 (Seq Int)) (x!1 Int)) (Array Int Bool) (ite (< x!1 -2) ((as const (Array Int Bool)) false) (ite (seq.contains a!1 (seq.unit x!1)) (store (e!m a!1 (- x!1 1)) x!1 true) (e!m a!1 (- x!1 1)))))
+(define-fun mapping ((a!1 (List Int))) (Array Int Bool) (e!m (element a!1) 6))
+(define-fun-rec s!ze ((a!1 (Seq Int)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (seq.contains a!1 (seq.unit x!1)) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(declare-const t0 (Iterator Int))
+(declare-const ?p0 (List Int))
+(assert (= (s!ze (element ?p0) 4) (seq.len (element ?p0))))
+(declare-const ?r (Iterator Int))
+(assert (and (and (= (mapping t0) (element ?p0)) (forall ((x Int)) (not (select (previous t0) x)))) (= ?r t0)))
+********The 0th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 1th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 2th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 3th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 4th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 5th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 6th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 7th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 8th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 9th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 10th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 11th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 12th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 13th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 14th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 15th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 16th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 17th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 18th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 19th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 20th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 21th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 22th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 23th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 24th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 25th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 26th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 27th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 28th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 29th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 30th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 31th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 32th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 33th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 34th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 35th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 36th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 37th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 38th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 39th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 40th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 41th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 42th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 43th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 44th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 45th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 46th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 47th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 48th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 49th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 50th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 51th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 52th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 53th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 54th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 55th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 56th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 57th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 58th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 59th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 60th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 61th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 62th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 63th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 64th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 65th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 66th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 67th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 68th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 69th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 70th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 71th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 72th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 73th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 74th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 75th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 76th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 77th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 78th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 79th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 80th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 81th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 82th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 83th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 84th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 85th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 86th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 87th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 88th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 89th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 90th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 91th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 92th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 93th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 94th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 95th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -1) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 96th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 97th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 98th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 99th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+#### Test API => SMT ####
+********SMT to be check********
+(declare-datatypes (T) ((Set (mk-set (mapping (Array T Bool))))))
+(declare-datatypes (T) ((List (mk-list (element (Seq T))))))
+(declare-datatypes (T) ((Iterator (mk-iterator (mapping (Seq T)) (previous (Array T Bool))))))
+(declare-datatypes (K V) ((Map (mk-map (key (Array K Bool)) (mapping (Array K V))))))
+(declare-datatypes (K V) ((Entry (mk-entry (key K) (value V)))))
+(define-fun-rec s!ze ((a!1 (Array Int Bool)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (select a!1 x!1) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(define-fun-rec m!e ((a!1 (Array Int Bool)) (x!1 Int)) (Seq Int) (ite (< x!1 -2) (as seq.empty (Seq Int)) (ite (select a!1 x!1) (seq.++ (m!e a!1 (- x!1 1)) (seq.unit x!1)) (m!e a!1 (- x!1 1)))))
+(define-fun-rec e!m ((a!1 (Seq Int)) (x!1 Int)) (Array Int Bool) (ite (< x!1 -2) ((as const (Array Int Bool)) false) (ite (seq.contains a!1 (seq.unit x!1)) (store (e!m a!1 (- x!1 1)) x!1 true) (e!m a!1 (- x!1 1)))))
+(define-fun mapping ((a!1 (List Int))) (Array Int Bool) (e!m (element a!1) 6))
+(define-fun-rec s!ze ((a!1 (Seq Int)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (seq.contains a!1 (seq.unit x!1)) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(declare-const t0 (Iterator Int))
+(declare-const ?p0 (List Int))
+(assert (= (s!ze (element ?p0) 4) (seq.len (element ?p0))))
+(declare-const ?r (Iterator Int))
+(assert (and (and (= (mapping t0) (element ?p0)) (forall ((x Int)) (not (select (previous t0) x)))) (= ?r t0)))
+********The 0th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 1th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 2th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 3th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 4th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 5th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 6th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 7th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 8th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 9th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 10th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 11th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 12th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 13th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 14th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 15th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 3) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 3) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 16th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 17th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 18th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 19th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 20th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 21th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 22th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 23th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 24th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 25th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 26th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 27th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 28th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 29th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 30th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 31th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 32th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 33th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 34th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 35th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 36th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 37th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 38th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 39th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 40th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 41th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 42th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 43th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 44th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 0) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 0) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 45th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 46th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 47th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 48th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -1) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 49th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 50th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 51th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 52th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 53th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 54th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 55th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 56th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 57th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 58th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 59th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 60th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 61th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 62th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 63th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 64th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 65th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 66th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 67th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 68th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 0) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 0) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 69th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 70th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 71th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 72th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 73th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 74th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 75th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 76th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 77th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 78th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 79th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 80th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 81th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 82th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 83th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 84th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 85th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 86th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 87th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 88th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 89th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 90th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 91th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 92th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 93th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 94th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 95th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 96th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 97th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 98th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 99th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+#### Test API => SMT ####
+********SMT to be check********
+(declare-datatypes (T) ((Set (mk-set (mapping (Array T Bool))))))
+(declare-datatypes (T) ((List (mk-list (element (Seq T))))))
+(declare-datatypes (T) ((Iterator (mk-iterator (mapping (Seq T)) (previous (Array T Bool))))))
+(declare-datatypes (K V) ((Map (mk-map (key (Array K Bool)) (mapping (Array K V))))))
+(declare-datatypes (K V) ((Entry (mk-entry (key K) (value V)))))
+(define-fun-rec s!ze ((a!1 (Array Int Bool)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (select a!1 x!1) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(define-fun-rec m!e ((a!1 (Array Int Bool)) (x!1 Int)) (Seq Int) (ite (< x!1 -2) (as seq.empty (Seq Int)) (ite (select a!1 x!1) (seq.++ (m!e a!1 (- x!1 1)) (seq.unit x!1)) (m!e a!1 (- x!1 1)))))
+(define-fun-rec e!m ((a!1 (Seq Int)) (x!1 Int)) (Array Int Bool) (ite (< x!1 -2) ((as const (Array Int Bool)) false) (ite (seq.contains a!1 (seq.unit x!1)) (store (e!m a!1 (- x!1 1)) x!1 true) (e!m a!1 (- x!1 1)))))
+(define-fun mapping ((a!1 (List Int))) (Array Int Bool) (e!m (element a!1) 6))
+(define-fun-rec s!ze ((a!1 (Seq Int)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (seq.contains a!1 (seq.unit x!1)) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(declare-const t0 (Iterator Int))
+(declare-const ?p0 (List Int))
+(assert (= (s!ze (element ?p0) 4) (seq.len (element ?p0))))
+(declare-const ?r (Iterator Int))
+(assert (and (and (= (mapping t0) (element ?p0)) (forall ((x Int)) (not (select (previous t0) x)))) (= ?r t0)))
+********The 0th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 1th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 2th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 3th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 4th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 5th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 6th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 7th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 8th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 9th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 10th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 11th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 12th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 13th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 14th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit -1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 15th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 1) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 16th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 17th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 18th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 19th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 20th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 21th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 22th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 23th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 24th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 25th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 26th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 27th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 28th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 29th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 30th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 31th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 32th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 33th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 34th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 35th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 36th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 37th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 38th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 39th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 40th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 41th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 42th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 43th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 44th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 45th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 46th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 47th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 48th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 49th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 50th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 51th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 52th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 53th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 54th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit -1) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 55th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 56th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 57th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 58th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 59th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 60th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 61th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 62th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 63th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 64th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 65th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 66th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 67th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 68th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 69th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 70th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 71th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 72th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 73th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 74th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 75th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 76th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 77th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 78th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 79th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 80th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 81th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 82th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 83th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 84th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 85th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 86th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 87th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 88th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 89th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 90th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 91th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 92th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 93th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 94th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 95th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 96th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 97th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 98th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 99th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+#### Test API => SMT ####
+********SMT to be check********
+(declare-datatypes (T) ((Set (mk-set (mapping (Array T Bool))))))
+(declare-datatypes (T) ((List (mk-list (element (Seq T))))))
+(declare-datatypes (T) ((Iterator (mk-iterator (mapping (Seq T)) (previous (Array T Bool))))))
+(declare-datatypes (K V) ((Map (mk-map (key (Array K Bool)) (mapping (Array K V))))))
+(declare-datatypes (K V) ((Entry (mk-entry (key K) (value V)))))
+(define-fun-rec s!ze ((a!1 (Array Int Bool)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (select a!1 x!1) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(define-fun-rec m!e ((a!1 (Array Int Bool)) (x!1 Int)) (Seq Int) (ite (< x!1 -2) (as seq.empty (Seq Int)) (ite (select a!1 x!1) (seq.++ (m!e a!1 (- x!1 1)) (seq.unit x!1)) (m!e a!1 (- x!1 1)))))
+(define-fun-rec e!m ((a!1 (Seq Int)) (x!1 Int)) (Array Int Bool) (ite (< x!1 -2) ((as const (Array Int Bool)) false) (ite (seq.contains a!1 (seq.unit x!1)) (store (e!m a!1 (- x!1 1)) x!1 true) (e!m a!1 (- x!1 1)))))
+(define-fun mapping ((a!1 (List Int))) (Array Int Bool) (e!m (element a!1) 6))
+(define-fun-rec s!ze ((a!1 (Seq Int)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (seq.contains a!1 (seq.unit x!1)) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(declare-const t0 (Iterator Int))
+(declare-const ?p0 (List Int))
+(assert (= (s!ze (element ?p0) 4) (seq.len (element ?p0))))
+(declare-const ?r (Iterator Int))
+(assert (and (and (= (mapping t0) (element ?p0)) (forall ((x Int)) (not (select (previous t0) x)))) (= ?r t0)))
+********The 0th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 1th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 2th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 3th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 4th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 5th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 6th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 7th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 8th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 9th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 10th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 11th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 12th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 13th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 14th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 15th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 16th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 17th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 18th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 19th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 20th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 21th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 22th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 23th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 24th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 25th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 26th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 27th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 28th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 29th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 30th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 31th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 32th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 33th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 34th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 35th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 36th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 37th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 38th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 39th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 40th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 41th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 42th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 43th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 44th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 45th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 46th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 47th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 48th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 49th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 50th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 51th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 52th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 53th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 54th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 55th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -1) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 56th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 57th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 58th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 59th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 60th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 61th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 62th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 63th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 64th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 65th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 66th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 67th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 68th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 69th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 70th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 71th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 72th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 73th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 74th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 0) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 75th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 76th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 77th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 78th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 79th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 80th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 81th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 82th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 83th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 84th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 85th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 86th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 87th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 88th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 89th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 90th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 91th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 92th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 93th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 94th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 95th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 96th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 97th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 98th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 99th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+#### Test API => SMT ####
+********SMT to be check********
+(declare-datatypes (T) ((Set (mk-set (mapping (Array T Bool))))))
+(declare-datatypes (T) ((List (mk-list (element (Seq T))))))
+(declare-datatypes (T) ((Iterator (mk-iterator (mapping (Seq T)) (previous (Array T Bool))))))
+(declare-datatypes (K V) ((Map (mk-map (key (Array K Bool)) (mapping (Array K V))))))
+(declare-datatypes (K V) ((Entry (mk-entry (key K) (value V)))))
+(define-fun-rec s!ze ((a!1 (Array Int Bool)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (select a!1 x!1) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(define-fun-rec m!e ((a!1 (Array Int Bool)) (x!1 Int)) (Seq Int) (ite (< x!1 -2) (as seq.empty (Seq Int)) (ite (select a!1 x!1) (seq.++ (m!e a!1 (- x!1 1)) (seq.unit x!1)) (m!e a!1 (- x!1 1)))))
+(define-fun-rec e!m ((a!1 (Seq Int)) (x!1 Int)) (Array Int Bool) (ite (< x!1 -2) ((as const (Array Int Bool)) false) (ite (seq.contains a!1 (seq.unit x!1)) (store (e!m a!1 (- x!1 1)) x!1 true) (e!m a!1 (- x!1 1)))))
+(define-fun mapping ((a!1 (List Int))) (Array Int Bool) (e!m (element a!1) 6))
+(define-fun-rec s!ze ((a!1 (Seq Int)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (seq.contains a!1 (seq.unit x!1)) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(declare-const t0 (Iterator Int))
+(declare-const ?p0 (List Int))
+(assert (= (s!ze (element ?p0) 4) (seq.len (element ?p0))))
+(declare-const ?r (Iterator Int))
+(assert (and (and (= (mapping t0) (element ?p0)) (forall ((x Int)) (not (select (previous t0) x)))) (= ?r t0)))
+********The 0th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 1th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 2th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 3th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 4th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 5th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 6th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 7th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 8th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 9th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 10th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 11th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 12th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 13th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 14th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 15th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 16th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 17th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 18th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 19th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 3) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 3) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 20th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 21th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 22th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 23th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 24th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 25th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 26th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 27th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 28th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 29th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 30th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 3) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 3) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 31th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 32th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 33th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 34th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 35th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 36th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 37th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 38th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 39th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 40th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 41th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 42th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 43th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 44th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 45th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 46th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 47th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 48th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 49th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 50th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 51th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 52th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 53th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 54th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 55th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 56th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 57th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 58th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 59th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 60th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 61th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 62th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 63th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 64th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 65th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 66th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 67th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 68th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 69th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 70th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 71th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 72th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 73th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 74th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 75th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 76th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 77th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 78th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 79th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 3) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 3) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 80th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 0) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 81th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 82th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 83th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 84th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 85th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -2) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -2) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 86th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 87th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 88th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 89th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 90th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 91th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 92th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 93th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 94th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 95th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 96th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 97th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 98th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 99th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+#### Test API => SMT ####
+********SMT to be check********
+(declare-datatypes (T) ((Set (mk-set (mapping (Array T Bool))))))
+(declare-datatypes (T) ((List (mk-list (element (Seq T))))))
+(declare-datatypes (T) ((Iterator (mk-iterator (mapping (Seq T)) (previous (Array T Bool))))))
+(declare-datatypes (K V) ((Map (mk-map (key (Array K Bool)) (mapping (Array K V))))))
+(declare-datatypes (K V) ((Entry (mk-entry (key K) (value V)))))
+(define-fun-rec s!ze ((a!1 (Array Int Bool)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (select a!1 x!1) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(define-fun-rec m!e ((a!1 (Array Int Bool)) (x!1 Int)) (Seq Int) (ite (< x!1 -2) (as seq.empty (Seq Int)) (ite (select a!1 x!1) (seq.++ (m!e a!1 (- x!1 1)) (seq.unit x!1)) (m!e a!1 (- x!1 1)))))
+(define-fun-rec e!m ((a!1 (Seq Int)) (x!1 Int)) (Array Int Bool) (ite (< x!1 -2) ((as const (Array Int Bool)) false) (ite (seq.contains a!1 (seq.unit x!1)) (store (e!m a!1 (- x!1 1)) x!1 true) (e!m a!1 (- x!1 1)))))
+(define-fun mapping ((a!1 (List Int))) (Array Int Bool) (e!m (element a!1) 6))
+(define-fun-rec s!ze ((a!1 (Seq Int)) (x!1 Int)) Int (ite (< x!1 -2) 0 (ite (seq.contains a!1 (seq.unit x!1)) (+ (s!ze a!1 (- x!1 1)) 1) (s!ze a!1 (- x!1 1)))))
+(declare-const t0 (Iterator Int))
+(declare-const ?p0 (List Int))
+(assert (= (s!ze (element ?p0) 4) (seq.len (element ?p0))))
+(declare-const ?r (Iterator Int))
+(assert (and (and (= (mapping t0) (element ?p0)) (forall ((x Int)) (not (select (previous t0) x)))) (= ?r t0)))
+********The 0th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 1th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 2th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 3th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 4th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 5th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 6th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 7th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 8th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 9th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 10th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 11th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 12th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 13th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 14th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 15th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 16th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 17th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 18th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 19th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 20th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 21th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 22th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 23th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 24th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 25th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 26th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 27th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 28th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 29th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 30th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 31th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 32th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 33th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 34th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 35th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 36th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 37th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 38th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 39th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 4) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 40th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 41th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 42th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 43th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 44th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 45th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 46th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 47th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 48th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 49th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 3) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 3) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 50th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -1) (seq.unit 1) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 1) (seq.unit -1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 51th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 52th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 53th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 54th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 55th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 56th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 57th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 58th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 59th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 60th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -2) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit -2) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 61th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 62th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 63th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 64th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 65th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 66th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 67th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 68th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 69th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 70th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 71th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 72th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 2) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 73th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 74th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit 4) (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 75th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 76th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 77th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 78th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 79th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 80th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 81th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 0) (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3) (seq.unit 0))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 82th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 83th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 84th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit -1) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit -1) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 85th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 4) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 4))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 86th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 4) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 4) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 87th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 88th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 0) (seq.unit 4))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 4) (seq.unit 0) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 89th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 3))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 3))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 90th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 91th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 92th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 2) (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1) (seq.unit 2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 93th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 94th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 95th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 0))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 0) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 96th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 97th test case******** UNSATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit -2) (seq.unit 3) (seq.unit -1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit -1) (seq.unit 3) (seq.unit -2))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 98th test case******** SATISFIABLE
+(assert (= (element ?p0) (seq.++ (seq.unit 1))))
+(assert (and (= (mapping ?r) (seq.++ (seq.unit 1))) (= (previous ?r) (lambda ((x!1 Int)) false))))
+********The 99th test case******** SATISFIABLE
+(assert (= (element ?p0) (as seq.empty (Seq Int))))
+(assert (and (= (mapping ?r) (as seq.empty (Seq Int))) (= (previous ?r) (lambda ((x!1 Int)) false))))
