@@ -20,6 +20,10 @@ Make sure your Java version is [Java 8](https://docs.oracle.com/javase/8).
 
 Doc2SMT employs [Z3 prover](https://github.com/Z3Prover/z3) to check candidate constraints during dynamic validation. In order to run it correctly you need to make sure [Z3-4.8.4](https://github.com/Z3Prover/z3/releases/tag/z3-4.8.4) be built on your machine. For Windows users, you also need to add ```$Z3_HOME/bin``` to the environment variables.
 
+## Download Doc2smt release version
+
+Download [a release version](https://github.com/doc2smt/doc2smt/releases/download/v1.0/doc2smt-tool.tar.gz) of Doc2smt on the release page and extract it.
+
 ## Get started
 
 Run ```java -Xmx8g -jar doc2smt.jar``` command under the _tool_ folder and you can see this instruction:
