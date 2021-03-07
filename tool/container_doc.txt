@@ -6254,3 +6254,291 @@ returnLabel: [missing]
 throwsLabel: [missing]
 seeLabel: [missing]
 ####
+MethodName: lower
+Signature: NavigableSet: E lower(E e)
+docBody: Returns the greatest element in this set strictly less than the given element, or null if there is no such element.
+paramLabel: e - the value to match
+returnLabel: the greatest element less than e, or null if there is no such element
+throwsLabel: ClassCastException - if the specified element cannot be compared with the elements currently in the set%NullPointerException - if the specified element is null and this set does not permit null elements
+seeLabel: [missing]
+####
+MethodName: floor
+Signature: NavigableSet: E floor(E e)
+docBody: Returns the greatest element in this set less than or equal to the given element, or null if there is no such element.
+paramLabel: e - the value to match
+returnLabel: the greatest element less than or equal to e, or null if there is no such element
+throwsLabel: ClassCastException - if the specified element cannot be compared with the elements currently in the set%NullPointerException - if the specified element is null and this set does not permit null elements
+seeLabel: [missing]
+####
+MethodName: ceiling
+Signature: NavigableSet: E ceiling(E e)
+docBody: Returns the least element in this set greater than or equal to the given element, or null if there is no such element.
+paramLabel: e - the value to match
+returnLabel: the least element greater than or equal to e, or null if there is no such element
+throwsLabel: ClassCastException - if the specified element cannot be compared with the elements currently in the set%NullPointerException - if the specified element is null and this set does not permit null elements
+seeLabel: [missing]
+####
+MethodName: higher
+Signature: NavigableSet: E higher(E e)
+docBody: Returns the least element in this set strictly greater than the given element, or null if there is no such element.
+paramLabel: e - the value to match
+returnLabel: the least element greater than e, or null if there is no such element
+throwsLabel: ClassCastException - if the specified element cannot be compared with the elements currently in the set%NullPointerException - if the specified element is null and this set does not permit null elements
+seeLabel: [missing]
+####
+MethodName: pollFirst
+Signature: NavigableSet: E pollFirst()
+docBody: Retrieves and removes the first (lowest) element, or returns null if this set is empty.
+paramLabel: [missing]
+returnLabel: the first element, or null if this set is empty
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: pollLast
+Signature: NavigableSet: E pollLast()
+docBody: Retrieves and removes the last (highest) element, or returns null if this set is empty.
+paramLabel: [missing]
+returnLabel: the last element, or null if this set is empty
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: iterator
+Signature: NavigableSet: Iterator<E> iterator()
+docBody: Returns an iterator over the elements in this set, in ascending order.
+paramLabel: [missing]
+returnLabel: an iterator over the elements in this set, in ascending order
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: descendingSet
+Signature: NavigableSet: NavigableSet<E> descendingSet()
+docBody: Returns a reverse order view of the elements contained in this set. The descending set is backed by this set, so changes to the set are reflected in the descending set, and vice-versa. If either set is modified while an iteration over either set is in progress (except through the iterator's own remove operation), the results of the iteration are undefined. The returned set has an ordering equivalent to Collections.reverseOrder(comparator()). The expression s.descendingSet().descendingSet() returns a view of s essentially equivalent to s.
+paramLabel: [missing]
+returnLabel: a reverse order view of this set
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: descendingIterator
+Signature: NavigableSet: Iterator<E> descendingIterator()
+docBody: Returns an iterator over the elements in this set, in descending order. Equivalent in effect to descendingSet().iterator().
+paramLabel: [missing]
+returnLabel: an iterator over the elements in this set, in descending order
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: subSet
+Signature: NavigableSet: NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive)
+docBody: Returns a view of the portion of this set whose elements range from fromElement to toElement. If fromElement and toElement are equal, the returned set is empty unless fromInclusive and toInclusive are both true. The returned set is backed by this set, so changes in the returned set are reflected in this set, and vice-versa. The returned set supports all optional set operations that this set supports. The returned set will throw an IllegalArgumentException on an attempt to insert an element outside its range.
+paramLabel: fromElement - low endpoint of the returned set%fromInclusive - true if the low endpoint is to be included in the returned view%toElement - high endpoint of the returned set%toInclusive - true if the high endpoint is to be included in the returned view
+returnLabel: a view of the portion of this set whose elements range from fromElement, inclusive, to toElement, exclusive
+throwsLabel: ClassCastException - if fromElement and toElement cannot be compared to one another using this set's comparator (or, if the set has no comparator, using natural ordering). Implementations may, but are not required to, throw this exception if fromElement or toElement cannot be compared to elements currently in the set.%NullPointerException - if fromElement or toElement is null and this set does not permit null elements%IllegalArgumentException - if fromElement is greater than toElement; or if this set itself has a restricted range, and fromElement or toElement lies outside the bounds of the range.
+seeLabel: [missing]
+####
+MethodName: headSet
+Signature: NavigableSet: NavigableSet<E> headSet(E toElement, boolean inclusive)
+docBody: Returns a view of the portion of this set whose elements are less than (or equal to, if inclusive is true) toElement. The returned set is backed by this set, so changes in the returned set are reflected in this set, and vice-versa. The returned set supports all optional set operations that this set supports. The returned set will throw an IllegalArgumentException on an attempt to insert an element outside its range.
+paramLabel: toElement - high endpoint of the returned set%inclusive - true if the high endpoint is to be included in the returned view
+returnLabel: a view of the portion of this set whose elements are less than (or equal to, if inclusive is true) toElement
+throwsLabel: ClassCastException - if toElement is not compatible with this set's comparator (or, if the set has no comparator, if toElement does not implement Comparable). Implementations may, but are not required to, throw this exception if toElement cannot be compared to elements currently in the set.%NullPointerException - if toElement is null and this set does not permit null elements%IllegalArgumentException - if this set itself has a restricted range, and toElement lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: tailSet
+Signature: NavigableSet: NavigableSet<E> tailSet(E fromElement, boolean inclusive)
+docBody: Returns a view of the portion of this set whose elements are greater than (or equal to, if inclusive is true) fromElement. The returned set is backed by this set, so changes in the returned set are reflected in this set, and vice-versa. The returned set supports all optional set operations that this set supports. The returned set will throw an IllegalArgumentException on an attempt to insert an element outside its range.
+paramLabel: fromElement - low endpoint of the returned set%inclusive - true if the low endpoint is to be included in the returned view
+returnLabel: a view of the portion of this set whose elements are greater than or equal to fromElement
+throwsLabel: ClassCastException - if fromElement is not compatible with this set's comparator (or, if the set has no comparator, if fromElement does not implement Comparable). Implementations may, but are not required to, throw this exception if fromElement cannot be compared to elements currently in the set.%NullPointerException - if fromElement is null and this set does not permit null elements%IllegalArgumentException - if this set itself has a restricted range, and fromElement lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: subSet
+Signature: NavigableSet: SortedSet<E> subSet(E fromElement, E toElement)
+docBody: Returns a view of the portion of this set whose elements range from fromElement, inclusive, to toElement, exclusive. (If fromElement and toElement are equal, the returned set is empty.) The returned set is backed by this set, so changes in the returned set are reflected in this set, and vice-versa. The returned set supports all optional set operations that this set supports. The returned set will throw an IllegalArgumentException on an attempt to insert an element outside its range. Equivalent to subSet(fromElement, true, toElement, false).
+paramLabel: fromElement - low endpoint (inclusive) of the returned set%toElement - high endpoint (exclusive) of the returned set
+returnLabel: a view of the portion of this set whose elements range from fromElement, inclusive, to toElement, exclusive
+throwsLabel: ClassCastException - if fromElement and toElement cannot be compared to one another using this set's comparator (or, if the set has no comparator, using natural ordering). Implementations may, but are not required to, throw this exception if fromElement or toElement cannot be compared to elements currently in the set.%NullPointerException - if fromElement or toElement is null and this set does not permit null elements%IllegalArgumentException - if fromElement is greater than toElement; or if this set itself has a restricted range, and fromElement or toElement lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: headSet
+Signature: NavigableSet: SortedSet<E> headSet(E toElement)
+docBody: Returns a view of the portion of this set whose elements are strictly less than toElement. The returned set is backed by this set, so changes in the returned set are reflected in this set, and vice-versa. The returned set supports all optional set operations that this set supports. The returned set will throw an IllegalArgumentException on an attempt to insert an element outside its range. Equivalent to headSet(toElement, false).
+paramLabel: toElement - high endpoint (exclusive) of the returned set
+returnLabel: a view of the portion of this set whose elements are strictly less than toElement
+throwsLabel: ClassCastException - if toElement is not compatible with this set's comparator (or, if the set has no comparator, if toElement does not implement Comparable). Implementations may, but are not required to, throw this exception if toElement cannot be compared to elements currently in the set.%NullPointerException - if toElement is null and this set does not permit null elements%IllegalArgumentException - if this set itself has a restricted range, and toElement lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: tailSet
+Signature: NavigableSet: SortedSet<E> tailSet(E fromElement)
+docBody: Returns a view of the portion of this set whose elements are greater than or equal to fromElement. The returned set is backed by this set, so changes in the returned set are reflected in this set, and vice-versa. The returned set supports all optional set operations that this set supports. The returned set will throw an IllegalArgumentException on an attempt to insert an element outside its range. Equivalent to tailSet(fromElement, true).
+paramLabel: fromElement - low endpoint (inclusive) of the returned set
+returnLabel: a view of the portion of this set whose elements are greater than or equal to fromElement
+throwsLabel: ClassCastException - if fromElement is not compatible with this set's comparator (or, if the set has no comparator, if fromElement does not implement Comparable). Implementations may, but are not required to, throw this exception if fromElement cannot be compared to elements currently in the set.%NullPointerException - if fromElement is null and this set does not permit null elements%IllegalArgumentException - if this set itself has a restricted range, and fromElement lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: lowerEntry
+Signature: NavigableMap: Map.Entry<K,V> lowerEntry(K key)
+docBody: Returns a key-value mapping associated with the greatest key strictly less than the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: an entry with the greatest key less than key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: lowerKey
+Signature: NavigableMap: K lowerKey(K key)
+docBody: Returns the greatest key strictly less than the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: the greatest key less than key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: floorEntry
+Signature: NavigableMap: Map.Entry<K,V> floorEntry(K key)
+docBody: Returns a key-value mapping associated with the greatest key less than or equal to the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: an entry with the greatest key less than or equal to key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: floorKey
+Signature: NavigableMap: K floorKey(K key)
+docBody: Returns the greatest key less than or equal to the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: the greatest key less than or equal to key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: ceilingEntry
+Signature: NavigableMap: Map.Entry<K,V> ceilingEntry(K key)
+docBody: Returns a key-value mapping associated with the least key greater than or equal to the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: an entry with the least key greater than or equal to key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: ceilingKey
+Signature: NavigableMap: K ceilingKey(K key)
+docBody: Returns the least key greater than or equal to the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: the least key greater than or equal to key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: higherEntry
+Signature: NavigableMap: Map.Entry<K,V> higherEntry(K key)
+docBody: Returns a key-value mapping associated with the least key strictly greater than the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: an entry with the least key greater than key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: higherKey
+Signature: NavigableMap: K higherKey(K key)
+docBody: Returns the least key strictly greater than the given key, or null if there is no such key.
+paramLabel: key - the key
+returnLabel: the least key greater than key, or null if there is no such key
+throwsLabel: ClassCastException - if the specified key cannot be compared with the keys currently in the map%NullPointerException - if the specified key is null and this map does not permit null keys
+seeLabel: [missing]
+####
+MethodName: firstEntry
+Signature: NavigableMap: Map.Entry<K,V> firstEntry()
+docBody: Returns a key-value mapping associated with the least key in this map, or null if the map is empty.
+paramLabel: [missing]
+returnLabel: an entry with the least key, or null if this map is empty
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: lastEntry
+Signature: NavigableMap: Map.Entry<K,V> lastEntry()
+docBody: Returns a key-value mapping associated with the greatest key in this map, or null if the map is empty.
+paramLabel: [missing]
+returnLabel: an entry with the greatest key, or null if this map is empty
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: pollFirstEntry
+Signature: NavigableMap: Map.Entry<K,V> pollFirstEntry()
+docBody: Removes and returns a key-value mapping associated with the least key in this map, or null if the map is empty.
+paramLabel: [missing]
+returnLabel: the removed first entry of this map, or null if this map is empty
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: pollLastEntry
+Signature: NavigableMap: Map.Entry<K,V> pollLastEntry()
+docBody: Removes and returns a key-value mapping associated with the greatest key in this map, or null if the map is empty.
+paramLabel: [missing]
+returnLabel: the removed last entry of this map, or null if this map is empty
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: descendingMap
+Signature: NavigableMap: NavigableMap<K,V> descendingMap()
+docBody: Returns a reverse order view of the mappings contained in this map. The descending map is backed by this map, so changes to the map are reflected in the descending map, and vice-versa. If either map is modified while an iteration over a collection view of either map is in progress (except through the iterator's own remove operation), the results of the iteration are undefined. The returned map has an ordering equivalent to Collections.reverseOrder(comparator()). The expression m.descendingMap().descendingMap() returns a view of m essentially equivalent to m.
+paramLabel: [missing]
+returnLabel: a reverse order view of this map
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: navigableKeySet
+Signature: NavigableMap: NavigableSet<K> navigableKeySet()
+docBody: Returns a NavigableSet view of the keys contained in this map. The set's iterator returns the keys in ascending order. The set is backed by the map, so changes to the map are reflected in the set, and vice-versa. If the map is modified while an iteration over the set is in progress (except through the iterator's own remove operation), the results of the iteration are undefined. The set supports element removal, which removes the corresponding mapping from the map, via the Iterator.remove, Set.remove, removeAll, retainAll, and clear operations. It does not support the add or addAll operations.
+paramLabel: [missing]
+returnLabel: a navigable set view of the keys in this map
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: descendingKeySet
+Signature: NavigableMap: NavigableSet<K> descendingKeySet()
+docBody: Returns a reverse order NavigableSet view of the keys contained in this map. The set's iterator returns the keys in descending order. The set is backed by the map, so changes to the map are reflected in the set, and vice-versa. If the map is modified while an iteration over the set is in progress (except through the iterator's own remove operation), the results of the iteration are undefined. The set supports element removal, which removes the corresponding mapping from the map, via the Iterator.remove, Set.remove, removeAll, retainAll, and clear operations. It does not support the add or addAll operations.
+paramLabel: [missing]
+returnLabel: a reverse order navigable set view of the keys in this map
+throwsLabel: [missing]
+seeLabel: [missing]
+####
+MethodName: subMap
+Signature: NavigableMap: NavigableMap<K,V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive)
+docBody: Returns a view of the portion of this map whose keys range from fromKey to toKey. If fromKey and toKey are equal, the returned map is empty unless fromInclusive and toInclusive are both true. The returned map is backed by this map, so changes in the returned map are reflected in this map, and vice-versa. The returned map supports all optional map operations that this map supports. The returned map will throw an IllegalArgumentException on an attempt to insert a key outside of its range, or to construct a submap either of whose endpoints lie outside its range.
+paramLabel: fromKey - low endpoint of the keys in the returned map%fromInclusive - true if the low endpoint is to be included in the returned view%toKey - high endpoint of the keys in the returned map%toInclusive - true if the high endpoint is to be included in the returned view
+returnLabel: a view of the portion of this map whose keys range from fromKey to toKey
+throwsLabel: ClassCastException - if fromKey and toKey cannot be compared to one another using this map's comparator (or, if the map has no comparator, using natural ordering). Implementations may, but are not required to, throw this exception if fromKey or toKey cannot be compared to keys currently in the map.%NullPointerException - if fromKey or toKey is null and this map does not permit null keys%IllegalArgumentException - if fromKey is greater than toKey; or if this map itself has a restricted range, and fromKey or toKey lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: headMap
+Signature: NavigableMap: NavigableMap<K,V> headMap(K toKey, boolean inclusive)
+docBody: Returns a view of the portion of this map whose keys are less than (or equal to, if inclusive is true) toKey. The returned map is backed by this map, so changes in the returned map are reflected in this map, and vice-versa. The returned map supports all optional map operations that this map supports. The returned map will throw an IllegalArgumentException on an attempt to insert a key outside its range.
+paramLabel: toKey - high endpoint of the keys in the returned map%inclusive - true if the high endpoint is to be included in the returned view
+returnLabel: a view of the portion of this map whose keys are less than (or equal to, if inclusive is true) toKey
+throwsLabel: ClassCastException - if toKey is not compatible with this map's comparator (or, if the map has no comparator, if toKey does not implement Comparable). Implementations may, but are not required to, throw this exception if toKey cannot be compared to keys currently in the map.%NullPointerException - if toKey is null and this map does not permit null keys%IllegalArgumentException - if this map itself has a restricted range, and toKey lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: tailMap
+Signature: NavigableMap: NavigableMap<K,V> tailMap(K fromKey, boolean inclusive)
+docBody: Returns a view of the portion of this map whose keys are greater than (or equal to, if inclusive is true) fromKey. The returned map is backed by this map, so changes in the returned map are reflected in this map, and vice-versa. The returned map supports all optional map operations that this map supports. The returned map will throw an IllegalArgumentException on an attempt to insert a key outside its range.
+paramLabel: fromKey - low endpoint of the keys in the returned map%inclusive - true if the low endpoint is to be included in the returned view
+returnLabel: a view of the portion of this map whose keys are greater than (or equal to, if inclusive is true) fromKey
+throwsLabel: ClassCastException - if fromKey is not compatible with this map's comparator (or, if the map has no comparator, if fromKey does not implement Comparable). Implementations may, but are not required to, throw this exception if fromKey cannot be compared to keys currently in the map.%NullPointerException - if fromKey is null and this map does not permit null keys%IllegalArgumentException - if this map itself has a restricted range, and fromKey lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: subMap
+Signature: NavigableMap: SortedMap<K,V> subMap(K fromKey, K toKey)
+docBody: Returns a view of the portion of this map whose keys range from fromKey, inclusive, to toKey, exclusive. (If fromKey and toKey are equal, the returned map is empty.) The returned map is backed by this map, so changes in the returned map are reflected in this map, and vice-versa. The returned map supports all optional map operations that this map supports. The returned map will throw an IllegalArgumentException on an attempt to insert a key outside its range. Equivalent to subMap(fromKey, true, toKey, false).
+paramLabel: fromKey - low endpoint (inclusive) of the keys in the returned map%toKey - high endpoint (exclusive) of the keys in the returned map
+returnLabel: a view of the portion of this map whose keys range from fromKey, inclusive, to toKey, exclusive
+throwsLabel: ClassCastException - if fromKey and toKey cannot be compared to one another using this map's comparator (or, if the map has no comparator, using natural ordering). Implementations may, but are not required to, throw this exception if fromKey or toKey cannot be compared to keys currently in the map.%NullPointerException - if fromKey or toKey is null and this map does not permit null keys%IllegalArgumentException - if fromKey is greater than toKey; or if this map itself has a restricted range, and fromKey or toKey lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: headMap
+Signature: NavigableMap: SortedMap<K,V> headMap(K toKey)
+docBody: Returns a view of the portion of this map whose keys are strictly less than toKey. The returned map is backed by this map, so changes in the returned map are reflected in this map, and vice-versa. The returned map supports all optional map operations that this map supports. The returned map will throw an IllegalArgumentException on an attempt to insert a key outside its range. Equivalent to headMap(toKey, false).
+paramLabel: toKey - high endpoint (exclusive) of the keys in the returned map
+returnLabel: a view of the portion of this map whose keys are strictly less than toKey
+throwsLabel: ClassCastException - if toKey is not compatible with this map's comparator (or, if the map has no comparator, if toKey does not implement Comparable). Implementations may, but are not required to, throw this exception if toKey cannot be compared to keys currently in the map.%NullPointerException - if toKey is null and this map does not permit null keys%IllegalArgumentException - if this map itself has a restricted range, and toKey lies outside the bounds of the range
+seeLabel: [missing]
+####
+MethodName: tailMap
+Signature: NavigableMap: SortedMap<K,V> tailMap(K fromKey)
+docBody: Returns a view of the portion of this map whose keys are greater than or equal to fromKey. The returned map is backed by this map, so changes in the returned map are reflected in this map, and vice-versa. The returned map supports all optional map operations that this map supports. The returned map will throw an IllegalArgumentException on an attempt to insert a key outside its range. Equivalent to tailMap(fromKey, true).
+paramLabel: fromKey - low endpoint (inclusive) of the keys in the returned map
+returnLabel: a view of the portion of this map whose keys are greater than or equal to fromKey
+throwsLabel: ClassCastException - if fromKey is not compatible with this map's comparator (or, if the map has no comparator, if fromKey does not implement Comparable). Implementations may, but are not required to, throw this exception if fromKey cannot be compared to keys currently in the map.%NullPointerException - if fromKey is null and this map does not permit null keys%IllegalArgumentException - if this map itself has a restricted range, and fromKey lies outside the bounds of the range
+seeLabel: [missing]
+####
